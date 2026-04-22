@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cold-to-Cooked — Snap your fridge. Get instant recipes.</title>
+  <meta name="description" content="Turn any ingredients into delicious meals in seconds. AI-powered recipe generation from a photo of your fridge." />
+
+  <style>
+    /* ─── Reset & base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:       #EDB821;
+      --gold-light: #F5CF5A;
+      --gold-dim:   rgba(237,184,33,.15);
+      --bg:         #0E0E0E;
+      --surface:    #161616;
+      --surface2:   #1E1E1E;
+      --border:     rgba(255,255,255,.08);
+      --text:       #F2F2F2;
+      --muted:      #888;
+      --green:      #34C759;
+      --radius-lg:  24px;
+      --radius:     14px;
+      --radius-sm:  8px;
+      --transition: .25s cubic-bezier(.4,0,.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── Utility ─────────────────────────────────────────────── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .gold      { color: var(--gold); }
+    .tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--gold);
+      background: var(--gold-dim); border: 1px solid rgba(237,184,33,.3);
+      border-radius: 100px; padding: 5px 14px;
+    }
+
+    /* ─── Animations ──────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+    @keyframes glow {
+      0%,100% { box-shadow: 0 0 40px rgba(237,184,33,.25); }
+      50%      { box-shadow: 0 0 70px rgba(237,184,33,.50); }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position:  200% center; }
+    }
+    @keyframes pulse-ring {
+      0%   { transform: scale(1);   opacity: .6; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    .fade-up { animation: fadeUp .7s ease both; }
+    .delay-1 { animation-delay: .1s; }
+    .delay-2 { animation-delay: .22s; }
+    .delay-3 { animation-delay: .34s; }
+    .delay-4 { animation-delay: .46s; }
+
+    /* ─── Nav ─────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(14,14,14,.8);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 1.1rem; font-weight: 700;
+    }
+    .nav-logo .emoji { font-size: 1.4rem; }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold); color: #000;
+      font-size: .85rem; font-weight: 700;
+      padding: 9px 20px; border-radius: 100px;
+      transition: var(--transition);
+    }
+    .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* ─── Hero ────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 120px 0 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 10%, rgba(237,184,33,.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(52,199,89,.06) 0%, transparent 60%);
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 60px;
+      position: relative;
+    }
+    .hero-eyebrow { margin-bottom: 20px; }
+    .hero-title {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -.02em;
+      margin-bottom: 20px;
+    }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--muted);
+      max-width: 440px; margin-bottom: 36px;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+    .btn-appstore {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--gold); color: #000;
+      font-weight: 700; font-size: .95rem;
+      padding: 14px 28px; border-radius: var(--radius);
+      transition: var(--transition); animation: glow 3s ease infinite;
+    }
+    .btn-appstore:hover { background: var(--gold-light); transform: translateY(-2px) scale(1.02); }
+    .btn-appstore svg { width: 20px; height: 20px; }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--muted); font-size: .9rem;
+      padding: 14px 0;
+      border-bottom: 1px solid transparent;
+      transition: var(--transition);
+    }
+    .btn-ghost:hover { color: var(--text); border-color: var(--text); }
+
+    .hero-badges { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+    .badge {
+      display: flex; align-items: center; gap: 7px;
+      font-size: .8rem; color: var(--muted);
+    }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+    /* Phone mockup */
+    .phone-wrap {
+      display: flex; justify-content: center; align-items: center;
+      animation: float 5s ease-in-out infinite;
+      position: relative;
+    }
+    .phone-wrap::before {
+      content: '';
+      position: absolute; width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(237,184,33,.15) 0%, transparent 70%);
+      border-radius: 50%; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      animation: pulse-ring 3s ease-out infinite;
+    }
+    .phone {
+      width: 220px; height: 440px;
+      background: var(--surface);
+      border-radius: 36px;
+      border: 2px solid rgba(237,184,33,.25);
+      box-shadow: 0 40px 80px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.06);
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .phone-notch {
+      width: 80px; height: 22px;
+      background: #000; border-radius: 0 0 16px 16px;
+      margin: 0 auto 12px;
+    }
+    .phone-screen {
+      flex: 1; padding: 12px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .phone-title {
+      font-size: .65rem; font-weight: 700; color: var(--muted);
+      letter-spacing: .06em; text-transform: uppercase;
+    }
+    .phone-hero-text {
+      font-size: .95rem; font-weight: 800; line-height: 1.25;
+      color: var(--text);
+    }
+    .phone-hero-text span { color: var(--gold); }
+    .phone-img-placeholder {
+      flex: 1; border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, #1a2a1a, #0d1f0d);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem; position: relative; overflow: hidden;
+    }
+    .phone-img-placeholder::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg,
+        rgba(237,184,33,.08) 0%,
+        transparent 50%,
+        rgba(52,199,89,.06) 100%);
+    }
+    .phone-recipe-strip {
+      background: var(--surface2); border-radius: var(--radius-sm);
+      padding: 8px 10px; display: flex; align-items: center; gap: 8px;
+    }
+    .strip-dot { width: 28px; height: 28px; border-radius: 50%; background: var(--gold-dim); display: flex; align-items: center; justify-content: center; font-size: .9rem; flex-shrink: 0; }
+    .strip-text { font-size: .6rem; }
+    .strip-title { font-weight: 700; color: var(--text); }
+    .strip-sub   { color: var(--muted); }
+
+    /* ─── Section shared ──────────────────────────────────────── */
+    section { padding: 100px 0; }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-header h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; letter-spacing: -.02em; margin-top: 14px;
+    }
+    .section-header p { color: var(--muted); max-width: 500px; margin: 14px auto 0; }
+
+    /* ─── How it works ────────────────────────────────────────── */
+    #how { background: var(--surface); }
+    .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; }
+    .step {
+      text-align: center; padding: 40px 28px;
+      background: var(--bg); border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .step::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--gold-dim) 0%, transparent 60%);
+      opacity: 0; transition: var(--transition);
+    }
+    .step:hover { transform: translateY(-4px); border-color: rgba(237,184,33,.3); }
+    .step:hover::before { opacity: 1; }
+
+    .step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--gold); color: #000;
+      font-size: 1.1rem; font-weight: 800;
+      margin-bottom: 20px;
+    }
+    .step-icon { font-size: 2.6rem; margin-bottom: 12px; }
+    .step h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .step p  { color: var(--muted); font-size: .9rem; }
+
+    /* ─── Features ────────────────────────────────────────────── */
+    .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .feature-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 28px;
+      transition: var(--transition);
+    }
+    .feature-card:hover { border-color: rgba(237,184,33,.3); transform: translateY(-3px); }
+    .feature-icon {
+      width: 48px; height: 48px; border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 16px;
+    }
+    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p  { color: var(--muted); font-size: .875rem; line-height: 1.55; }
+
+    /* ─── Pricing ─────────────────────────────────────────────── */
+    #pricing { background: var(--surface); }
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 780px; margin: 0 auto; }
+
+    .plan {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 36px 32px;
+      transition: var(--transition);
+    }
+    .plan.premium {
+      border-color: var(--gold);
+      background: linear-gradient(145deg, #161200, var(--bg));
+      position: relative; overflow: hidden;
+      box-shadow: 0 0 60px rgba(237,184,33,.12);
+    }
+    .plan.premium::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .plan-badge {
+      display: inline-block;
+      background: var(--gold); color: #000;
+      font-size: .7rem; font-weight: 800; letter-spacing: .08em;
+      text-transform: uppercase; padding: 4px 12px; border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .plan-name { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; }
+    .plan-price {
+      font-size: 2.6rem; font-weight: 800;
+      color: var(--gold); margin-bottom: 4px; line-height: 1;
+    }
+    .plan-price span { font-size: 1rem; font-weight: 400; color: var(--muted); }
+    .plan-note { font-size: .8rem; color: var(--muted); margin-bottom: 28px; }
+    .plan-divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .plan-features li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .9rem; color: var(--muted);
+    }
+    .plan-features li .check { color: var(--green); font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+    .plan-features li strong { color: var(--text); }
+
+    .plan-btn {
+      display: block; text-align: center; margin-top: 28px;
+      padding: 14px; border-radius: var(--radius);
+      font-weight: 700; font-size: .95rem;
+      transition: var(--transition);
+    }
+    .plan-btn.free    { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+    .plan-btn.free:hover    { background: var(--surface); }
+    .plan-btn.premium-btn  {
+      background: var(--gold); color: #000;
+      animation: shimmer 3s linear infinite;
+      background-image: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 40%, var(--gold) 60%, var(--gold) 100%);
+      background-size: 200% auto;
+    }
+    .plan-btn.premium-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(237,184,33,.35); }
+
+    .pricing-note {
+      text-align: center; color: var(--muted); font-size: .85rem;
+      margin-top: 28px;
+    }
+
+    /* ─── CTA Banner ──────────────────────────────────────────── */
+    #cta {
+      padding: 100px 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(237,184,33,.1) 0%, transparent 70%);
+    }
+    .cta-inner {
+      text-align: center; max-width: 580px; margin: 0 auto;
+    }
+    .cta-inner h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; letter-spacing: -.02em; margin-bottom: 16px;
+    }
+    .cta-inner p { color: var(--muted); margin-bottom: 36px; font-size: 1.05rem; }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--gold); color: #000;
+      font-weight: 700; font-size: 1rem;
+      padding: 16px 36px; border-radius: var(--radius);
+      transition: var(--transition);
+    }
+    .cta-btn:hover { background: var(--gold-light); transform: translateY(-2px) scale(1.02); box-shadow: 0 12px 32px rgba(237,184,33,.35); }
+    .cta-sub { color: var(--muted); font-size: .82rem; margin-top: 14px; }
+
+    /* ─── Footer ──────────────────────────────────────────────── */
+    footer {
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 48px 0;
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 8px; font-weight: 700; }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { color: var(--muted); font-size: .875rem; transition: color var(--transition); }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { color: var(--muted); font-size: .8rem; width: 100%; text-align: center; margin-top: 8px; }
+
+    /* ─── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .hero-grid    { grid-template-columns: 1fr; text-align: center; gap: 48px; }
+      .hero-sub     { margin: 0 auto 36px; }
+      .hero-actions { justify-content: center; }
+      .hero-badges  { justify-content: center; }
+      .phone-wrap   { order: -1; }
+      .steps              { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+      .features-grid      { grid-template-columns: 1fr 1fr; }
+      .pricing-grid       { grid-template-columns: 1fr; max-width: 420px; }
+    }
+    @media (max-width: 560px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .footer-inner  { flex-direction: column; text-align: center; }
+      .footer-links  { justify-content: center; }
+      .nav-cta span  { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ──────────────────────────────────────────────────── -->
+<nav>
+  <div class="container nav-inner">
+    <div class="nav-logo">
+      <span class="emoji">🍽️</span>
+      <span>Cold-to-Cooked</span>
+    </div>
+    <a href="support.html" style="color:var(--muted);font-size:.875rem;margin-right:20px;transition:color .25s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">Support</a>
+    <a href="#" class="nav-cta">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <span>Download Free</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ── Hero ─────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow fade-up">
+          <span class="tag">✨ Powered by Claude AI</span>
+        </div>
+        <h1 class="hero-title fade-up delay-1">
+          Snap your fridge.<br><span class="gold">Get instant AI recipes.</span>
+        </h1>
+        <p class="hero-sub fade-up delay-2">
+          Turn any ingredients into delicious meals in seconds. No more staring at the fridge wondering what to cook.
+        </p>
+        <div class="hero-actions fade-up delay-3">
+          <a href="#" class="btn-appstore">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            Download on the App Store
+          </a>
+          <a href="#how" class="btn-ghost">See how it works →</a>
+        </div>
+        <div class="hero-badges fade-up delay-4">
+          <div class="badge"><span class="badge-dot"></span> Free to download</div>
+          <div class="badge"><span class="badge-dot"></span> 3 free scans/day</div>
+          <div class="badge"><span class="badge-dot"></span> No credit card needed</div>
+        </div>
+      </div>
+
+      <div class="phone-wrap fade-up delay-2">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="phone-title">Cold-to-Cooked</div>
+            <div class="phone-hero-text">Cook what's<br>in your <span>fridge</span> 🍽️</div>
+            <div class="phone-img-placeholder">📸</div>
+            <div class="phone-recipe-strip">
+              <div class="strip-dot">🥗</div>
+              <div class="strip-text">
+                <div class="strip-title">Spinach Pasta</div>
+                <div class="strip-sub">20 min · 480 kcal</div>
+              </div>
+            </div>
+            <div class="phone-recipe-strip">
+              <div class="strip-dot">🍳</div>
+              <div class="strip-text">
+                <div class="strip-title">Egg Fried Rice</div>
+                <div class="strip-sub">15 min · 390 kcal</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How it works ──────────────────────────────────────────── -->
+<section id="how">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">Simple as 1-2-3</span>
+      <h2>From fridge to plate<br>in three steps</h2>
+      <p>No complicated setup. Just open the app and start cooking.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-icon">📸</div>
+        <h3>Snap</h3>
+        <p>Take a photo of your fridge or pantry. Our AI sees everything — even that forgotten jar in the back.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-icon">🤖</div>
+        <h3>Detect</h3>
+        <p>Claude AI instantly identifies every ingredient in your photo and builds your digital pantry in seconds.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-icon">👨‍🍳</div>
+        <h3>Cook</h3>
+        <p>Get 3–5 personalized recipes tailored to what you actually have. Full instructions included, no extra trips to the store.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Features ──────────────────────────────────────────────── -->
+<section id="features">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">Everything you need</span>
+      <h2>More than just recipes</h2>
+      <p>A complete kitchen companion built for the way you actually cook.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(237,184,33,.12);">🤖</div>
+        <h3>AI Ingredient Detection</h3>
+        <p>Claude AI scans your photo and extracts every ingredient automatically. Add, remove, or edit before generating recipes.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(52,199,89,.12);">⚡</div>
+        <h3>Instant Recipe Generation</h3>
+        <p>3–5 fully tailored recipes stream to your screen in seconds, complete with ingredients, steps, cook time, and calories.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(255,59,48,.12);">❤️</div>
+        <h3>Health Tracker</h3>
+        <p>Set personalized calorie, protein, and water goals. Log meals and track your daily nutrition with beautiful progress rings.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(255,149,0,.12);">🍎</div>
+        <h3>Apple Health Sync</h3>
+        <p>Every meal you log syncs directly to Apple Health. Your nutrition data lives where it belongs — alongside your other health metrics.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(90,200,250,.12);">📅</div>
+        <h3>Meal Planner</h3>
+        <p>Plan breakfast, lunch, and dinner for the entire week. Navigate between weeks and build a routine that actually sticks.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(175,82,222,.12);">📖</div>
+        <h3>Recipe History</h3>
+        <p>Every recipe you generate is saved automatically. Browse your history, re-cook favorites, and build your personal cookbook.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Pricing ────────────────────────────────────────────────── -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">Simple pricing</span>
+      <h2>Start free, upgrade<br>when you're ready</h2>
+      <p>No hidden fees. Cancel anytime.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Free -->
+      <div class="plan">
+        <div class="plan-name">Free</div>
+        <div class="plan-price">$0<span>/forever</span></div>
+        <div class="plan-note">No credit card required</div>
+        <hr class="plan-divider">
+        <ul class="plan-features">
+          <li><span class="check">✓</span><span><strong>3 scans</strong> per day</span></li>
+          <li><span class="check">✓</span><span>AI recipe generation</span></li>
+          <li><span class="check">✓</span><span>Recipe history</span></li>
+          <li><span class="check">✓</span><span>Save favourite recipes</span></li>
+          <li><span class="check">✓</span><span>Barcode nutrition scanner</span></li>
+          <li style="opacity:.4"><span class="check">✗</span><span>Health Tracker</span></li>
+          <li style="opacity:.4"><span class="check">✗</span><span>Meal Planner</span></li>
+          <li style="opacity:.4"><span class="check">✗</span><span>Apple Health Sync</span></li>
+        </ul>
+        <a href="#" class="plan-btn free">Download Free</a>
+      </div>
+
+      <!-- Premium -->
+      <div class="plan premium">
+        <div class="plan-badge">Most Popular</div>
+        <div class="plan-name">Premium</div>
+        <div class="plan-price">$3.99<span>/month</span></div>
+        <div class="plan-note">or $31.99/year &nbsp;·&nbsp; Save 33%</div>
+        <hr class="plan-divider">
+        <ul class="plan-features">
+          <li><span class="check">✓</span><span><strong>Unlimited</strong> scans</span></li>
+          <li><span class="check">✓</span><span>Everything in Free</span></li>
+          <li><span class="check">✓</span><span><strong>Health Tracker</strong> with custom goals</span></li>
+          <li><span class="check">✓</span><span><strong>Meal Planner</strong> with weekly view</span></li>
+          <li><span class="check">✓</span><span><strong>Auto Shopping List</strong> from meal plan</span></li>
+          <li><span class="check">✓</span><span><strong>Apple Health</strong> sync</span></li>
+          <li><span class="check">✓</span><span>Streak tracking &amp; milestones</span></li>
+          <li><span class="check">✓</span><span>Priority recipe generation</span></li>
+        </ul>
+        <a href="#" class="plan-btn premium-btn">Start Premium →</a>
+      </div>
+    </div>
+
+    <p class="pricing-note">All purchases managed securely through Apple. Cancel anytime in Settings.</p>
+  </div>
+</section>
+
+<!-- ── CTA ────────────────────────────────────────────────────── -->
+<section id="cta">
+  <div class="container">
+    <div class="cta-inner">
+      <span class="tag" style="margin-bottom:20px;display:inline-block;">Free to start</span>
+      <h2>Stop wondering what<br>to cook tonight.</h2>
+      <p>Join thousands of home cooks turning their fridges into restaurant-quality meals every day.</p>
+      <a href="#" class="cta-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on the App Store
+      </a>
+      <p class="cta-sub">Free · iOS 16+ · No account required to browse</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Health disclaimer ──────────────────────────────────────── -->
+<div style="background:#1a1200;border-top:1px solid rgba(237,184,33,.2);border-bottom:1px solid rgba(237,184,33,.2);padding:14px 0;">
+  <div class="container" style="text-align:center;font-size:.8rem;color:#999;line-height:1.55;">
+    <strong style="color:#ccc;">Health Notice:</strong>
+    Cold-to-Cooked is not a medical app. Nutrition information is for general guidance only.
+    Consult a healthcare professional before making significant dietary changes.
+  </div>
+</div>
+
+<!-- ── Footer ─────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span>🍽️</span>
+        <span>Cold-to-Cooked</span>
+      </div>
+      <div class="footer-links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-of-service.html">Terms of Service</a>
+        <a href="support.html">Support</a>
+        <a href="mailto:support@coldtocooked.com">support@coldtocooked.com</a>
+      </div>
+    </div>
+    <p class="footer-copy" style="margin-bottom:8px;">© 2025 Cold-to-Cooked. All rights reserved.</p>
+    <p class="footer-copy" style="font-size:.75rem;opacity:.6;">
+      Food safety disclaimer: Always follow proper food safety guidelines.
+      Cold-to-Cooked is not responsible for foodborne illness.
+    </p>
+  </div>
+</footer>
+
+<script>
+  // Intersection observer for scroll-triggered fade-ups
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.animation = 'fadeUp .6s ease both';
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.step, .feature-card, .plan').forEach(el => {
+    el.style.opacity = '0';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
