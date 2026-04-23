@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — Cold-to-Cooked</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #EDB821; --bg: #0E0E0E; --surface: #161616;
+      --border: rgba(255,255,255,.08); --text: #F2F2F2; --muted: #888;
+    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(14,14,14,.9); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border); padding: 0 24px;
+    }
+    .nav-inner { max-width: 860px; margin: 0 auto; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-weight: 700; font-size: 1rem; }
+    .nav-logo span { color: var(--gold); }
+    .nav-back { color: var(--muted); font-size: .875rem; }
+    .nav-back:hover { color: var(--text); }
+
+    .page { max-width: 860px; margin: 0 auto; padding: 56px 24px 100px; }
+    .page-header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+    .page-header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: 10px; }
+    .page-header p { color: var(--muted); font-size: .95rem; }
+
+    .contact-card {
+      display: flex; align-items: center; gap: 16px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 24px 28px; margin-bottom: 56px;
+    }
+    .contact-icon { font-size: 2rem; flex-shrink: 0; }
+    .contact-card h2 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .contact-card p { color: var(--muted); font-size: .875rem; margin: 0; }
+    .contact-card a { font-size: 1rem; font-weight: 600; }
+
+    .faq-section h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 24px; }
+
+    details {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; margin-bottom: 12px; overflow: hidden;
+    }
+    summary {
+      padding: 18px 22px; font-weight: 600; font-size: .975rem;
+      cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;
+      user-select: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: '+'; color: var(--gold); font-size: 1.3rem; font-weight: 300; transition: transform .2s; }
+    details[open] summary::after { content: '−'; }
+    details[open] summary { border-bottom: 1px solid var(--border); }
+    .faq-body { padding: 18px 22px; color: #ccc; font-size: .925rem; }
+    .faq-body p { margin-bottom: 10px; }
+    .faq-body p:last-child { margin-bottom: 0; }
+    .faq-body ul { padding-left: 18px; }
+    .faq-body ul li { margin-bottom: 6px; }
+
+    footer { text-align: center; padding: 40px 24px; color: var(--muted); font-size: .825rem; border-top: 1px solid var(--border); }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">Cold-to-<span>Cooked</span></span>
+    <a class="nav-back" href="index.html">← Back to home</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="page-header">
+    <h1>Cold-to-Cooked Support</h1>
+    <p>We're here to help. Browse the FAQs below or reach out directly.</p>
+  </div>
+
+  <!-- Contact -->
+  <div class="contact-card">
+    <div class="contact-icon">✉️</div>
+    <div>
+      <h2>Email Support</h2>
+      <p>Typical response time: within 24 hours</p>
+      <a href="mailto:support@coldtocooked.com">support@coldtocooked.com</a>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+
+    <details>
+      <summary>How does Cold-to-Cooked generate recipes?</summary>
+      <div class="faq-body">
+        <p>Take or upload a photo of your fridge (or enter ingredients manually), and our AI analyzes what you have. It then generates personalized recipes based on those exact ingredients, along with cooking time, difficulty, and nutritional info.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How many free scans do I get?</summary>
+      <div class="faq-body">
+        <p>Free users get 3 fridge scans per day. Upgrading to Premium gives you unlimited scans every day, plus access to the Health Tracker, Meal Planner, and more.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I cancel or manage my subscription?</summary>
+      <div class="faq-body">
+        <p>Subscriptions are managed through the Apple App Store. To cancel:</p>
+        <ul>
+          <li>Open the <strong>Settings</strong> app on your iPhone</li>
+          <li>Tap your name at the top, then <strong>Subscriptions</strong></li>
+          <li>Find <strong>Cold-to-Cooked</strong> and tap <strong>Cancel Subscription</strong></li>
+        </ul>
+        <p>You'll retain Premium access until the end of the current billing period.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I restore my purchases on a new device?</summary>
+      <div class="faq-body">
+        <p>Open the app and go to the Premium screen. Tap <strong>Restore Purchases</strong> at the bottom. Make sure you're signed in to the same Apple ID used when you originally subscribed.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Why isn't the Health Tracker showing my data?</summary>
+      <div class="faq-body">
+        <p>The Health Tracker is a Premium feature. If you've upgraded and still don't see your data, try these steps:</p>
+        <ul>
+          <li>Pull down to refresh on the Health tab</li>
+          <li>Make sure you have an active internet connection</li>
+          <li>Force-quit and reopen the app</li>
+        </ul>
+        <p>If the issue persists, email us at <a href="mailto:support@coldtocooked.com">support@coldtocooked.com</a>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I log meals I didn't generate with the app?</summary>
+      <div class="faq-body">
+        <p>Yes. On the Health tab, tap <strong>Log Food</strong> to manually enter any meal with its calories and protein. You can also tap <strong>Scan Barcode</strong> to look up packaged foods instantly.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Does Cold-to-Cooked sync with Apple Health?</summary>
+      <div class="faq-body">
+        <p>Yes. When you log a meal or water intake, Cold-to-Cooked can write calorie, protein, and water data directly to Apple Health. You'll be prompted to grant permission the first time you use the Health Tracker on a real device.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>The recipe I generated doesn't look right. What should I do?</summary>
+      <div class="faq-body">
+        <p>AI-generated recipes can occasionally miss the mark. Try tapping <strong>Regenerate</strong> on the results screen to get a fresh set. If you continue seeing bad results for certain ingredients, let us know at <a href="mailto:support@coldtocooked.com">support@coldtocooked.com</a> — your feedback helps us improve.</p>
+      </div>
+    </details>
+
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2026 Cold-to-Cooked &nbsp;&middot;&nbsp; <a href="privacy-policy.html">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="terms-of-service.html">Terms of Service</a> &nbsp;&middot;&nbsp; <a href="mailto:support@coldtocooked.com">support@coldtocooked.com</a></p>
+</footer>
+
+</body>
+</html>
