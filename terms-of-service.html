@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service — Cold-to-Cooked</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #EDB821; --bg: #0E0E0E; --surface: #161616;
+      --border: rgba(255,255,255,.08); --text: #F2F2F2; --muted: #888;
+    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(14,14,14,.9); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border); padding: 0 24px;
+    }
+    .nav-inner { max-width: 860px; margin: 0 auto; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-weight: 700; font-size: 1rem; }
+    .nav-logo span { color: var(--gold); }
+    .nav-back { color: var(--muted); font-size: .875rem; }
+    .nav-back:hover { color: var(--text); }
+
+    .page { max-width: 860px; margin: 0 auto; padding: 56px 24px 100px; }
+    .page-header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+    .page-header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: 10px; }
+    .page-header .meta { color: var(--muted); font-size: .9rem; }
+    .page-header .meta span { color: var(--gold); }
+
+    h2 { font-size: 1.25rem; font-weight: 700; margin: 40px 0 14px; color: var(--text); padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    h3 { font-size: 1rem; font-weight: 700; margin: 24px 0 8px; color: var(--text); }
+    p  { color: #ccc; margin-bottom: 14px; font-size: .95rem; }
+    ul, ol { color: #ccc; font-size: .95rem; padding-left: 20px; margin-bottom: 14px; }
+    ul li, ol li { margin-bottom: 7px; }
+    strong { color: var(--text); }
+
+    .highlight {
+      background: rgba(237,184,33,.07); border: 1px solid rgba(237,184,33,.2);
+      border-radius: 10px; padding: 16px 20px; margin: 20px 0;
+      font-size: .9rem; color: #ccc;
+    }
+    .highlight strong { color: var(--gold); }
+
+    .warning {
+      background: rgba(255,59,48,.07); border: 1px solid rgba(255,59,48,.2);
+      border-radius: 10px; padding: 16px 20px; margin: 20px 0;
+      font-size: .9rem; color: #ccc;
+    }
+    .warning strong { color: #FF6B6B; }
+
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; }
+    footer p { color: var(--muted); font-size: .82rem; }
+    footer a { color: var(--muted); margin: 0 12px; }
+    footer a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">🍽️ Cold-to-Cooked</div>
+    <a href="index.html" class="nav-back">← Back to Home</a>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="page-header">
+    <h1>Terms of Service</h1>
+    <p class="meta">Last updated: <span>April 2026</span> &nbsp;·&nbsp; Effective: April 2026</p>
+  </div>
+
+  <div class="highlight">
+    <strong>Please read these terms carefully.</strong> By downloading or using Cold-to-Cooked, you agree to be bound by these Terms of Service. If you do not agree, do not use the app.
+  </div>
+
+  <h2>1. Acceptance of Terms</h2>
+  <p>These Terms of Service ("Terms") constitute a legally binding agreement between you ("User," "you") and Cold-to-Cooked ("we," "us," "our") governing your use of the Cold-to-Cooked mobile application, website, and related services (collectively, the "Service").</p>
+  <p>By creating an account, downloading the app, or otherwise accessing the Service, you confirm that you are at least 13 years old (or the minimum age in your jurisdiction), have read and understood these Terms, and agree to be bound by them.</p>
+
+  <h2>2. Description of Service</h2>
+  <p>Cold-to-Cooked is an iOS application that uses artificial intelligence to:</p>
+  <ul>
+    <li>Analyze photographs of your refrigerator or pantry to identify ingredients</li>
+    <li>Generate personalized recipe suggestions based on your available ingredients</li>
+    <li>Track your daily nutrition including calories, protein, and water intake</li>
+    <li>Sync nutrition data with Apple HealthKit (with your permission)</li>
+    <li>Plan meals for the week via the Meal Planner feature</li>
+    <li>Generate shopping lists from your meal plan</li>
+    <li>Scan product barcodes to look up nutritional information</li>
+  </ul>
+  <p>The Service relies on third-party AI providers (including Anthropic's Claude) to generate content. Recipe suggestions, ingredient detections, and nutritional estimates are AI-generated and may not always be accurate.</p>
+
+  <h2>3. Account Registration</h2>
+  <p>To use certain features you must create an account using a valid email address. You are responsible for maintaining the confidentiality of your account credentials and for all activity that occurs under your account. Notify us immediately at <a href="mailto:support@coldtocooked.com">support@coldtocooked.com</a> if you suspect unauthorized access.</p>
+  <p>We reserve the right to suspend or terminate accounts that violate these Terms.</p>
+
+  <h2>4. Free Tier and Limitations</h2>
+  <p>Cold-to-Cooked offers a free tier with the following limitations:</p>
+  <ul>
+    <li><strong>3 scans per day</strong> — you may photograph your fridge and generate recipes up to 3 times per 24-hour period</li>
+    <li>Access to recipe generation, recipe history, and saved recipes</li>
+    <li>Barcode nutrition scanner</li>
+    <li>No access to Health Tracker, Meal Planner, Apple Health Sync, or unlimited scans</li>
+  </ul>
+  <p>We reserve the right to modify free tier limitations at any time with reasonable notice.</p>
+
+  <h2>5. Subscription Terms and Billing</h2>
+
+  <h3>5.1 Premium Subscription</h3>
+  <p>Cold-to-Cooked Premium is available via in-app purchase through Apple's App Store at the following prices:</p>
+  <ul>
+    <li><strong>Monthly:</strong> $3.99 per month</li>
+    <li><strong>Annual:</strong> $31.99 per year (approximately 33% savings)</li>
+  </ul>
+  <p>Prices may vary by region and are subject to change. Current pricing is always displayed in the App Store prior to purchase.</p>
+
+  <h3>5.2 Billing and Renewal</h3>
+  <p>Subscriptions are billed through your Apple ID account. Payment is charged at the time of purchase and automatically renews at the end of each subscription period unless cancelled at least 24 hours before the renewal date.</p>
+  <p>Renewal charges are made within 24 hours before the end of the current period. You can manage or cancel your subscription at any time in your Apple ID account settings (Settings → [Your Name] → Subscriptions).</p>
+
+  <h3>5.3 Refunds</h3>
+  <p>All refund requests are handled by Apple under their standard refund policy. We do not process refunds directly. To request a refund, visit <a href="https://reportaproblem.apple.com" target="_blank">reportaproblem.apple.com</a>.</p>
+
+  <h3>5.4 Free Trials</h3>
+  <p>Where offered, free trials automatically convert to paid subscriptions unless cancelled before the trial ends.</p>
+
+  <h2>6. Acceptable Use</h2>
+  <p>You agree to use the Service only for lawful purposes. You must not:</p>
+  <ul>
+    <li>Attempt to reverse-engineer, decompile, or disassemble the app or its AI models</li>
+    <li>Use automated scripts, bots, or scraping tools to access the Service</li>
+    <li>Upload photos containing illegal content, nudity, or content that violates others' rights</li>
+    <li>Attempt to circumvent scan limits or subscription requirements</li>
+    <li>Share your account credentials with others</li>
+    <li>Use the Service to generate harmful, dangerous, or misleading food or health advice</li>
+    <li>Interfere with or disrupt the Service's servers or networks</li>
+    <li>Violate any applicable laws or regulations</li>
+  </ul>
+
+  <h2>7. AI-Generated Content</h2>
+  <p>The Service uses AI to generate recipes, identify ingredients, and provide nutritional estimates. You acknowledge that:</p>
+  <ul>
+    <li>AI-generated content may contain errors, inaccuracies, or omissions</li>
+    <li>Ingredient detection is not guaranteed to be complete or accurate</li>
+    <li>Nutritional estimates are approximations for general guidance only</li>
+    <li>You should always verify food safety before preparing and consuming any AI-suggested recipe</li>
+    <li>We are not responsible for the quality, taste, or safety of dishes prepared from AI-generated recipes</li>
+  </ul>
+
+  <h2>8. Health Disclaimer</h2>
+  <div class="warning">
+    <strong>Important Health Notice:</strong> Cold-to-Cooked is not a medical application and does not provide medical advice. The Health Tracker and nutritional information features are for general informational purposes only and are not a substitute for professional medical advice, diagnosis, or treatment.
+  </div>
+  <p>Always consult a qualified healthcare provider before making significant changes to your diet, especially if you have a medical condition, food allergy, or dietary restriction. Never disregard professional medical advice based on information provided by this app.</p>
+  <p><strong>Food Safety:</strong> Always follow proper food safety guidelines when storing, preparing, and consuming food. Cold-to-Cooked is not responsible for any foodborne illness, allergic reactions, or health consequences resulting from the use of AI-generated recipes or ingredient suggestions.</p>
+  <p><strong>Apple HealthKit:</strong> Data written to Apple Health through this app is for your personal reference only. It does not constitute a clinical record and should not be used for medical decision-making.</p>
+
+  <h2>9. Intellectual Property</h2>
+  <p>The Cold-to-Cooked app, its design, logo, and underlying technology are our intellectual property. You are granted a limited, non-exclusive, non-transferable licence to use the app for personal, non-commercial purposes.</p>
+  <p>AI-generated recipes produced through your use of the Service may be used by you personally. We retain no ownership claim over recipes generated for you, but we may use anonymized, aggregated usage data to improve the Service.</p>
+
+  <h2>10. Third-Party Services</h2>
+  <p>The Service integrates with third-party services including Anthropic, RevenueCat, Mixpanel, Sentry, Unsplash, and Apple HealthKit. Your use of these services through our app is subject to their respective terms and privacy policies. We are not responsible for the availability, accuracy, or practices of third-party services.</p>
+
+  <h2>11. Disclaimer of Warranties</h2>
+  <p>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR ACCURACY OF AI-GENERATED CONTENT.</p>
+  <p>We do not warrant that the Service will be uninterrupted, error-free, or free of viruses or other harmful components. We do not warrant the accuracy, completeness, or usefulness of any recipe, nutritional information, or ingredient detection provided by the Service.</p>
+
+  <h2>12. Limitation of Liability</h2>
+  <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, COLD-TO-COOKED AND ITS OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO:</p>
+  <ul>
+    <li>Loss of profits, data, or business opportunities</li>
+    <li>Personal injury or property damage resulting from use of AI-generated recipes</li>
+    <li>Foodborne illness or allergic reactions</li>
+    <li>Health consequences from following nutritional guidance in the app</li>
+    <li>Unauthorized access to your account</li>
+    <li>Service interruptions or data loss</li>
+  </ul>
+  <p>IN NO EVENT SHALL OUR TOTAL LIABILITY TO YOU EXCEED THE AMOUNT YOU PAID FOR THE SERVICE IN THE 12 MONTHS PRECEDING THE CLAIM, OR $10 USD IF YOU HAVE NOT MADE ANY PAYMENTS.</p>
+
+  <h2>13. Indemnification</h2>
+  <p>You agree to indemnify, defend, and hold harmless Cold-to-Cooked and its affiliates from any claims, damages, losses, liabilities, costs, and expenses (including reasonable legal fees) arising from your use of the Service, violation of these Terms, or infringement of any third-party rights.</p>
+
+  <h2>14. Termination</h2>
+  <p>You may stop using the Service at any time by deleting the app. To delete your account and data, email <a href="mailto:support@coldtocooked.com">support@coldtocooked.com</a>.</p>
+  <p>We reserve the right to suspend or terminate your access to the Service at our discretion, with or without notice, if you violate these Terms or if we discontinue the Service. Upon termination, your right to use the Service ceases immediately.</p>
+  <p>Sections 8, 11, 12, 13, and 15 survive termination.</p>
+
+  <h2>15. Governing Law and Disputes</h2>
+  <p>These Terms are governed by the laws of the State of California, United States, without regard to conflict of law principles. Any dispute arising from these Terms or your use of the Service shall be resolved through binding arbitration in accordance with the American Arbitration Association's rules, except that either party may seek injunctive relief in a court of competent jurisdiction.</p>
+  <p>If you are a consumer in the European Union, you may also have the right to access the EU Online Dispute Resolution platform at <a href="https://ec.europa.eu/consumers/odr" target="_blank">ec.europa.eu/consumers/odr</a>.</p>
+
+  <h2>16. Changes to These Terms</h2>
+  <p>We may update these Terms from time to time. We will notify you of material changes via email or an in-app notice at least 14 days before they take effect. Continued use of the Service after the effective date constitutes acceptance of the revised Terms.</p>
+
+  <h2>17. Entire Agreement</h2>
+  <p>These Terms, together with our <a href="privacy-policy.html">Privacy Policy</a>, constitute the entire agreement between you and Cold-to-Cooked regarding your use of the Service and supersede any prior agreements.</p>
+
+  <h2>18. Contact</h2>
+  <p>Questions about these Terms? Contact us at:</p>
+  <p>
+    <strong>Email:</strong> <a href="mailto:support@coldtocooked.com">support@coldtocooked.com</a><br>
+    <strong>Response time:</strong> We aim to respond within 2 business days.
+  </p>
+
+</div>
+
+<footer>
+  <p>
+    <a href="index.html">Home</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms-of-service.html">Terms of Service</a>
+    <a href="mailto:support@coldtocooked.com">support@coldtocooked.com</a>
+  </p>
+  <p style="margin-top:10px;">© 2026 Cold-to-Cooked. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,208 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Privacy Policy — Cold-to-Cooked</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0e0c09;
-    --surface: #161310;
-    --border: #2a2520;
-    --orange: #e8722a;
-    --orange-soft: #f0956a;
-    --cream: #f5ede0;
-    --muted: #7a6f65;
-    --text: #e8ddd2;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Cold-to-Cooked</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #EDB821; --bg: #0E0E0E; --surface: #161616;
+      --border: rgba(255,255,255,.08); --text: #F2F2F2; --muted: #888;
+    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(14,14,14,.9); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border); padding: 0 24px;
+    }
+    .nav-inner { max-width: 860px; margin: 0 auto; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-weight: 700; font-size: 1rem; }
+    .nav-logo span { color: var(--gold); }
+    .nav-back { color: var(--muted); font-size: .875rem; }
+    .nav-back:hover { color: var(--text); }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    min-height: 100vh;
-  }
+    .page { max-width: 860px; margin: 0 auto; padding: 56px 24px 100px; }
+    .page-header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+    .page-header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: 10px; }
+    .page-header .meta { color: var(--muted); font-size: .9rem; }
+    .page-header .meta span { color: var(--gold); }
 
-  header {
-    padding: 48px 48px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 800px;
-    margin: 0 auto;
-  }
+    h2 { font-size: 1.25rem; font-weight: 700; margin: 40px 0 14px; color: var(--text); padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    h3 { font-size: 1rem; font-weight: 700; margin: 24px 0 8px; color: var(--text); }
+    p  { color: #ccc; margin-bottom: 14px; font-size: .95rem; }
+    ul { color: #ccc; font-size: .95rem; padding-left: 20px; margin-bottom: 14px; }
+    ul li { margin-bottom: 7px; }
+    strong { color: var(--text); }
 
-  .logo {
-    font-family: 'Fraunces', serif;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--cream);
-    text-decoration: none;
-  }
-  .logo span { color: var(--orange); }
+    .highlight {
+      background: rgba(237,184,33,.07); border: 1px solid rgba(237,184,33,.2);
+      border-radius: 10px; padding: 16px 20px; margin: 20px 0;
+      font-size: .9rem; color: #ccc;
+    }
+    .highlight strong { color: var(--gold); }
 
-  .content {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 60px 48px 80px;
-  }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: .9rem; }
+    th { background: var(--surface); color: var(--text); font-weight: 600; text-align: left; padding: 10px 14px; border: 1px solid var(--border); }
+    td { padding: 10px 14px; border: 1px solid var(--border); color: #ccc; vertical-align: top; }
+    tr:nth-child(even) td { background: rgba(255,255,255,.02); }
 
-  .eyebrow {
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 16px;
-  }
-
-  h1 {
-    font-family: 'Fraunces', serif;
-    font-size: 2.8rem;
-    font-weight: 300;
-    color: var(--cream);
-    letter-spacing: -0.02em;
-    margin-bottom: 12px;
-  }
-
-  .last-updated {
-    color: var(--muted);
-    font-size: 0.85rem;
-    margin-bottom: 48px;
-    padding-bottom: 48px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  h2 {
-    font-family: 'Fraunces', serif;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--cream);
-    margin: 40px 0 14px;
-  }
-
-  p {
-    color: var(--muted);
-    font-size: 0.95rem;
-    line-height: 1.8;
-    margin-bottom: 14px;
-  }
-
-  ul {
-    color: var(--muted);
-    font-size: 0.95rem;
-    line-height: 1.8;
-    margin: 0 0 14px 20px;
-  }
-
-  ul li { margin-bottom: 6px; }
-
-  a { color: var(--orange-soft); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-
-  footer {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 32px 48px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .footer-copy { color: var(--muted); font-size: 0.8rem; }
-  .footer-nav { display: flex; gap: 24px; }
-  .footer-nav a { color: var(--muted); font-size: 0.8rem; }
-
-  @media (max-width: 600px) {
-    header, .content, footer { padding-left: 24px; padding-right: 24px; }
-    h1 { font-size: 2rem; }
-  }
-</style>
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; }
+    footer p { color: var(--muted); font-size: .82rem; }
+    footer a { color: var(--muted); margin: 0 12px; }
+    footer a:hover { color: var(--text); }
+  </style>
 </head>
 <body>
 
-<header>
-  <a href="index.html" class="logo">Cold<span>·</span>to<span>·</span>Cooked</a>
-</header>
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">🍽️ Cold-to-Cooked</div>
+    <a href="index.html" class="nav-back">← Back to Home</a>
+  </div>
+</nav>
 
-<div class="content">
-  <p class="eyebrow">Legal</p>
-  <h1>Privacy Policy</h1>
-  <p class="last-updated">Last updated: April 2026</p>
+<div class="page">
+  <div class="page-header">
+    <h1>Privacy Policy</h1>
+    <p class="meta">Last updated: <span>April 2025</span> &nbsp;·&nbsp; Effective: April 2025</p>
+  </div>
 
-  <p>Cold-to-Cooked ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our iOS app.</p>
+  <div class="highlight">
+    <strong>Summary:</strong> We collect only what we need to run the service. We don't sell your data. You can request deletion at any time by emailing <a href="mailto:support@coldtocooked.com">support@coldtocooked.com</a>.
+  </div>
 
-  <h2>Information We Collect</h2>
-  <p>We collect the following types of information:</p>
+  <h2>1. Who We Are</h2>
+  <p>Cold-to-Cooked ("we," "us," or "our") is an iOS application that uses artificial intelligence to generate recipes from photos of your refrigerator. This Privacy Policy explains how we collect, use, share, and protect your information when you use our app and website.</p>
+  <p>Contact: <a href="mailto:support@coldtocooked.com">support@coldtocooked.com</a></p>
+
+  <h2>2. Information We Collect</h2>
+
+  <h3>2.1 Account Information</h3>
   <ul>
-    <li><strong>Account information:</strong> Email address and user ID when you create an account</li>
-    <li><strong>Photos:</strong> Images you take or select from your photo library for ingredient scanning. These are processed to detect ingredients and are not permanently stored on our servers.</li>
-    <li><strong>Health data:</strong> Nutrition goals and meal logs you enter, which may be synced with Apple HealthKit with your permission</li>
-    <li><strong>Usage data:</strong> How you interact with the app, collected via Mixpanel analytics</li>
-    <li><strong>Purchase history:</strong> Subscription status managed via RevenueCat</li>
-    <li><strong>Crash data:</strong> Technical diagnostic information collected via Sentry to help us fix bugs</li>
+    <li><strong>Email address</strong> — collected when you create an account, used for authentication and support</li>
+    <li><strong>Authentication token</strong> — a secure JWT token stored locally on your device to keep you logged in</li>
   </ul>
 
-  <h2>How We Use Your Information</h2>
+  <h3>2.2 Health & Nutrition Data</h3>
   <ul>
-    <li>To provide and improve the app's features</li>
-    <li>To authenticate your account and manage your subscription</li>
-    <li>To personalize your experience (health goals, recipe suggestions)</li>
-    <li>To analyze app usage and fix technical issues</li>
-    <li>To respond to customer support requests</li>
+    <li><strong>Calorie, protein, and water logs</strong> — entered by you when using the Health Tracker feature</li>
+    <li><strong>Personal health goals</strong> — calorie, protein, and water targets you set in the app</li>
+    <li><strong>Apple HealthKit data</strong> — only if you explicitly grant permission; we read and write dietary data to Apple Health. We never share HealthKit data with third parties for advertising or marketing.</li>
   </ul>
 
-  <h2>Third-Party Services</h2>
-  <p>We use the following third-party services, each with their own privacy policies:</p>
+  <h3>2.3 Fridge & Recipe Data</h3>
   <ul>
-    <li><strong>Anthropic (Claude AI)</strong> — processes ingredient photos and generates recipes</li>
-    <li><strong>RevenueCat</strong> — manages subscription purchases</li>
-    <li><strong>Mixpanel</strong> — app usage analytics</li>
-    <li><strong>Sentry</strong> — crash reporting and diagnostics</li>
-    <li><strong>Unsplash</strong> — food photography displayed alongside recipes</li>
+    <li><strong>Photos</strong> — images you take or upload are sent to our server and to Anthropic's Claude API for ingredient detection. Photos are not stored permanently after processing.</li>
+    <li><strong>Saved recipes</strong> — recipes you choose to save are stored on our servers, linked to your account</li>
+    <li><strong>Recipe history</strong> — a log of recipes generated during your sessions</li>
+    <li><strong>Ingredient lists</strong> — the ingredients extracted from your photos</li>
   </ul>
 
-  <h2>Apple HealthKit</h2>
-  <p>If you grant permission, Cold-to-Cooked may read and write health data (calories, protein, water intake) to Apple HealthKit. This data is used solely to power the Health Tracker feature and is never shared with third parties or used for advertising purposes.</p>
-
-  <h2>Data Storage and Security</h2>
-  <p>Your data is stored securely on servers hosted by Railway. We use industry-standard security measures including HTTPS encryption and JWT authentication to protect your information.</p>
-
-  <h2>Data Retention</h2>
-  <p>We retain your account data for as long as your account is active. You may request deletion of your account and associated data by contacting us at <a href="mailto:support@coldtocooked.app">support@coldtocooked.app</a>.</p>
-
-  <h2>Children's Privacy</h2>
-  <p>Cold-to-Cooked is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13.</p>
-
-  <h2>Your Rights</h2>
-  <p>You have the right to:</p>
+  <h3>2.4 Usage & Analytics Data</h3>
   <ul>
-    <li>Access the personal data we hold about you</li>
-    <li>Request correction of inaccurate data</li>
-    <li>Request deletion of your data</li>
-    <li>Opt out of analytics tracking</li>
-    <li>Revoke HealthKit permissions at any time via iPhone Settings</li>
+    <li><strong>App events</strong> — actions like scans performed, recipes generated, and features used, collected via Mixpanel</li>
+    <li><strong>Crash reports</strong> — error data collected via Sentry to help us fix bugs</li>
+    <li><strong>Device type and OS version</strong> — used to optimize the app experience</li>
+    <li><strong>Streak and engagement data</strong> — consecutive days of use, stored locally in UserDefaults on your device</li>
   </ul>
 
-  <h2>Changes to This Policy</h2>
-  <p>We may update this Privacy Policy from time to time. We will notify you of significant changes by updating the date at the top of this page.</p>
+  <h3>2.5 Payment Information</h3>
+  <p>We do not collect or store payment card details. All subscription billing is handled by Apple's App Store. We receive confirmation of subscription status through RevenueCat.</p>
 
-  <h2>Contact Us</h2>
-  <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:support@coldtocooked.app">support@coldtocooked.app</a>.</p>
+  <h2>3. How We Use Your Information</h2>
+
+  <table>
+    <tr><th>Purpose</th><th>Data used</th><th>Legal basis</th></tr>
+    <tr><td>Providing the app service (recipe generation, ingredient detection)</td><td>Photos, email, saved data</td><td>Contract performance</td></tr>
+    <tr><td>Authentication and account security</td><td>Email, auth token</td><td>Contract performance</td></tr>
+    <tr><td>Health tracking features</td><td>Nutrition logs, goals, HealthKit</td><td>Consent</td></tr>
+    <tr><td>App analytics and improvement</td><td>Usage events, device info</td><td>Legitimate interest</td></tr>
+    <tr><td>Bug fixing and crash monitoring</td><td>Error logs, device info</td><td>Legitimate interest</td></tr>
+    <tr><td>Subscription management</td><td>Purchase status via RevenueCat</td><td>Contract performance</td></tr>
+    <tr><td>Customer support</td><td>Email, account info</td><td>Legitimate interest</td></tr>
+  </table>
+
+  <h2>4. Third-Party Services</h2>
+  <p>We work with the following trusted third parties to deliver our service:</p>
+
+  <h3>Anthropic (Claude AI)</h3>
+  <p>Your fridge photos and ingredient lists are processed by Anthropic's Claude API for AI-powered ingredient detection and recipe generation. Anthropic processes this data as a service provider. See <a href="https://www.anthropic.com/privacy" target="_blank">Anthropic's Privacy Policy</a>.</p>
+
+  <h3>RevenueCat</h3>
+  <p>Manages subscription entitlements and in-app purchase verification. RevenueCat receives your Apple subscription status and a pseudonymous user ID. See <a href="https://www.revenuecat.com/privacy" target="_blank">RevenueCat's Privacy Policy</a>.</p>
+
+  <h3>Mixpanel</h3>
+  <p>Analytics platform used to understand how users interact with the app. Events are pseudonymous (no name or email is sent to Mixpanel). You can opt out of analytics tracking by contacting us. See <a href="https://mixpanel.com/legal/privacy-policy/" target="_blank">Mixpanel's Privacy Policy</a>.</p>
+
+  <h3>Sentry</h3>
+  <p>Error and crash monitoring. Sentry may collect device information and error stack traces when the app crashes. No personally identifiable information is intentionally sent to Sentry. See <a href="https://sentry.io/privacy/" target="_blank">Sentry's Privacy Policy</a>.</p>
+
+  <h3>Unsplash</h3>
+  <p>Recipe card images are fetched from Unsplash using recipe titles as search queries. No personal data is sent to Unsplash. See <a href="https://unsplash.com/privacy" target="_blank">Unsplash's Privacy Policy</a>.</p>
+
+  <h3>Apple HealthKit</h3>
+  <p>If you grant permission, we read and write dietary data to Apple Health. HealthKit data is never shared with advertisers, never used for profiling, and never sent to third parties other than as described in this policy.</p>
+
+  <h2>5. Data Retention</h2>
+  <ul>
+    <li><strong>Account data</strong> — retained until you delete your account</li>
+    <li><strong>Recipe and health logs</strong> — retained until you request deletion</li>
+    <li><strong>Photos</strong> — deleted from our servers after ingredient detection is complete (not stored permanently)</li>
+    <li><strong>Analytics data</strong> — retained for up to 24 months in pseudonymous form</li>
+    <li><strong>Crash logs</strong> — retained for 90 days</li>
+  </ul>
+
+  <h2>6. Data Deletion</h2>
+  <p>You can request deletion of your account and all associated data at any time by emailing <a href="mailto:support@coldtocooked.com">support@coldtocooked.com</a> with the subject line "Delete My Account." We will process your request within 30 days.</p>
+  <p>Within the app, you can delete individual saved recipes and health logs at any time.</p>
+
+  <h2>7. Your Rights (GDPR — EEA/UK Users)</h2>
+  <p>If you are located in the European Economic Area or United Kingdom, you have the following rights:</p>
+  <ul>
+    <li><strong>Right of access</strong> — request a copy of the data we hold about you</li>
+    <li><strong>Right to rectification</strong> — correct inaccurate data</li>
+    <li><strong>Right to erasure</strong> — request deletion of your data ("right to be forgotten")</li>
+    <li><strong>Right to restriction</strong> — ask us to limit how we process your data</li>
+    <li><strong>Right to data portability</strong> — receive your data in a structured, machine-readable format</li>
+    <li><strong>Right to object</strong> — object to processing based on legitimate interest</li>
+    <li><strong>Right to withdraw consent</strong> — withdraw consent for health data processing at any time</li>
+  </ul>
+  <p>To exercise any of these rights, contact <a href="mailto:support@coldtocooked.com">support@coldtocooked.com</a>. We will respond within 30 days.</p>
+
+  <h2>8. Your Rights (CCPA — California Residents)</h2>
+  <p>California residents have the right to:</p>
+  <ul>
+    <li>Know what personal information we collect and how it is used</li>
+    <li>Request deletion of personal information</li>
+    <li>Opt out of the sale of personal information — <strong>we do not sell personal information</strong></li>
+    <li>Non-discrimination for exercising privacy rights</li>
+  </ul>
+  <p>To submit a CCPA request, contact <a href="mailto:support@coldtocooked.com">support@coldtocooked.com</a>.</p>
+
+  <h2>9. Children's Privacy</h2>
+  <p>Cold-to-Cooked is not directed to children under 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us personal information, contact us and we will promptly delete it.</p>
+
+  <h2>10. Data Security</h2>
+  <p>We use industry-standard security measures including HTTPS/TLS encryption for all data in transit, hashed passwords, and JWT-based authentication. However, no method of transmission over the internet is 100% secure.</p>
+
+  <h2>11. International Data Transfers</h2>
+  <p>Cold-to-Cooked operates servers primarily in the United States. If you are located outside the US, your information may be transferred to and processed in the US. By using the app you consent to this transfer.</p>
+
+  <h2>12. Changes to This Policy</h2>
+  <p>We may update this policy from time to time. We will notify you of significant changes via email or an in-app notice. The "Last updated" date at the top of this page reflects the most recent revision.</p>
+
+  <h2>13. Contact</h2>
+  <p>Questions about this Privacy Policy? Contact us at:</p>
+  <p><strong>Email:</strong> <a href="mailto:support@coldtocooked.com">support@coldtocooked.com</a><br>
+  <strong>Response time:</strong> We aim to respond within 2 business days.</p>
+
 </div>
 
 <footer>
-  <p class="footer-copy">© 2026 Jackson Deeter · Cold-to-Cooked</p>
-  <nav class="footer-nav">
-    <a href="support.html">Support</a>
-    <a href="terms-of-service.html">Terms of Use</a>
-  </nav>
+  <p>
+    <a href="index.html">Home</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms-of-service.html">Terms of Service</a>
+    <a href="mailto:support@coldtocooked.com">support@coldtocooked.com</a>
+  </p>
+  <p style="margin-top:10px;">© 2026 Cold-to-Cooked. All rights reserved.</p>
 </footer>
 
 </body>
