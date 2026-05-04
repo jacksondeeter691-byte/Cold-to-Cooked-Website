@@ -282,7 +282,7 @@
 
     /* ─── Pricing ─────────────────────────────────────────────── */
     #pricing { background: var(--surface); }
-    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 780px; margin: 0 auto; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; max-width: 1060px; margin: 0 auto; }
 
     .plan {
       background: var(--bg); border: 1px solid var(--border);
@@ -393,6 +393,7 @@
       .steps              { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
       .features-grid      { grid-template-columns: 1fr 1fr; }
       .pricing-grid       { grid-template-columns: 1fr; max-width: 420px; }
+      .plan.yearly        { order: -1; }
     }
     @media (max-width: 560px) {
       .features-grid { grid-template-columns: 1fr; }
@@ -590,12 +591,12 @@
         <a href="#" class="plan-btn free">Download Free</a>
       </div>
 
-      <!-- Premium -->
+      <!-- Premium Monthly -->
       <div class="plan premium">
         <div class="plan-badge">Most Popular</div>
         <div class="plan-name">Premium</div>
         <div class="plan-price">$3.99<span>/month</span></div>
-        <div class="plan-note">or $31.99/year &nbsp;·&nbsp; Save 33%</div>
+        <div class="plan-note">Billed monthly &nbsp;·&nbsp; Cancel anytime</div>
         <hr class="plan-divider">
         <ul class="plan-features">
           <li><span class="check">✓</span><span><strong>Unlimited</strong> scans</span></li>
@@ -609,6 +610,26 @@
           <li><span class="check">✓</span><span>Priority recipe generation</span></li>
         </ul>
         <a href="#" class="plan-btn premium-btn">Start Premium →</a>
+      </div>
+
+      <!-- Premium Yearly -->
+      <div class="plan yearly" style="border-color: rgba(52,199,89,.35); position: relative;">
+        <div class="plan-badge" style="background: var(--green); color: #fff;">Best Value</div>
+        <div class="plan-name">Premium <span style="color:var(--green)">Yearly</span></div>
+        <div class="plan-price">$31.99<span>/year</span></div>
+        <div class="plan-note">Just $2.67/mo &nbsp;·&nbsp; Save 33%</div>
+        <hr class="plan-divider">
+        <ul class="plan-features">
+          <li><span class="check">✓</span><span><strong>Unlimited</strong> scans</span></li>
+          <li><span class="check">✓</span><span>Everything in Free</span></li>
+          <li><span class="check">✓</span><span><strong>Health Tracker</strong> with custom goals</span></li>
+          <li><span class="check">✓</span><span><strong>Meal Planner</strong> with weekly view</span></li>
+          <li><span class="check">✓</span><span><strong>Auto Shopping List</strong> from meal plan</span></li>
+          <li><span class="check">✓</span><span><strong>Apple Health</strong> sync</span></li>
+          <li><span class="check">✓</span><span>Streak tracking &amp; milestones</span></li>
+          <li><span class="check">✓</span><span>Priority recipe generation</span></li>
+        </ul>
+        <a href="#" class="plan-btn premium-btn" style="background: var(--green); box-shadow: 0 4px 20px rgba(52,199,89,.3);">Start Yearly →</a>
       </div>
     </div>
 
