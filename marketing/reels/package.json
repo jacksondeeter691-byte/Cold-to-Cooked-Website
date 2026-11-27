@@ -1,0 +1,12 @@
+{
+  "name": "cold-to-cooked-reels",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "preview": "node engine/render.mjs --preview",
+    "render": "node engine/render.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.48.0"
+  }
+}
