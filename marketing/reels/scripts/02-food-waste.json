@@ -5,16 +5,136 @@
   "wordGap": 0.3,
   "coverAt": 1.6,
   "scenes": [
-    { "chapter": "the problem", "visual": "bigtext", "emoji": "🗑️", "say": "Stop throwing out food *you paid for.*", "hold": 1.2 },
-    { "chapter": "the problem", "visual": "fridge", "say": "It's not the food. It's the *system.*", "minDur": 3.6,
-      "items": [["🥬", "Spinach"], ["🍅", "Tomatoes"], ["🫑", "Peppers"], ["🥛", "Milk"], ["🍞", "Bread"], ["🍗", "Chicken"]] },
-    { "chapter": "the fix", "visual": "steps", "say": "*Four* fixes:", "minDur": 5.2, "start": 0.6, "stagger": 0.95,
-      "items": [["Cook the oldest thing first", "not the thing you feel like"], ["New groceries go to the back", "old stuff stays in sight"], ["Plan 3 dinners, not 7", "leftovers fill the gaps"], ["Freeze it on day one", "bread, meat, ripe bananas"]] },
-    { "chapter": "the shortcut", "visual": "phone", "say": "Snap what's about to *go bad.*", "minDur": 5.2,
-      "photo": ["🥬", "🍅", "🫑", "🍗", "🍞", "🥛"], "ready": "Recipes that use it up",
-      "tags": [["🥬", "Spinach"], ["🍅", "Tomatoes"], ["🫑", "Peppers"], ["🍗", "Chicken"]] },
-    { "chapter": "the shortcut", "visual": "recipes", "say": "Get dinners that *use it up.*", "minDur": 3.6,
-      "items": [["🥘", "Chicken & Pepper Skillet", "25 min"], ["🍝", "Tomato Spinach Pasta", "20 min"], ["🥪", "Toasted Veggie Melt", "10 min"]] },
-    { "chapter": "get it", "visual": "cta", "keyword": "COOK", "say": "Comment *COOK* and I'll send you the app.", "minDur": 4.2 }
-  ]
+    {
+      "chapter": "the problem",
+      "visual": "bigtext",
+      "emoji": "🗑️",
+      "say": "Stop throwing out food *you paid for.*",
+      "hold": 1.2
+    },
+    {
+      "chapter": "the problem",
+      "visual": "fridge",
+      "say": "It's not the food. It's the *system.*",
+      "minDur": 3.6,
+      "items": [
+        [
+          "🥬",
+          "Spinach"
+        ],
+        [
+          "🍅",
+          "Tomatoes"
+        ],
+        [
+          "🫑",
+          "Peppers"
+        ],
+        [
+          "🥛",
+          "Milk"
+        ],
+        [
+          "🍞",
+          "Bread"
+        ],
+        [
+          "🍗",
+          "Chicken"
+        ]
+      ]
+    },
+    {
+      "chapter": "the fix",
+      "visual": "steps",
+      "say": "*Four* fixes:",
+      "minDur": 5.2,
+      "start": 0.6,
+      "stagger": 0.95,
+      "items": [
+        [
+          "Cook the oldest thing first",
+          "not the thing you feel like"
+        ],
+        [
+          "New groceries go to the back",
+          "old stuff stays in sight"
+        ],
+        [
+          "Plan 3 dinners, not 7",
+          "leftovers fill the gaps"
+        ],
+        [
+          "Freeze it on day one",
+          "bread, meat, ripe bananas"
+        ]
+      ]
+    },
+    {
+      "chapter": "the shortcut",
+      "visual": "phone",
+      "say": "Snap whatever's about to *go bad.* AI spots every ingredient.",
+      "minDur": 5.2,
+      "photo": [
+        "🥬",
+        "🍅",
+        "🫑",
+        "🍗",
+        "🍞",
+        "🥛"
+      ],
+      "ready": "Recipes that use it up",
+      "tags": [
+        [
+          "🥬",
+          "Spinach"
+        ],
+        [
+          "🍅",
+          "Tomatoes"
+        ],
+        [
+          "🫑",
+          "Peppers"
+        ],
+        [
+          "🍗",
+          "Chicken"
+        ]
+      ],
+      "speak": "Snap whatever's about to go bad. A.I. spots every ingredient."
+    },
+    {
+      "chapter": "the shortcut",
+      "visual": "recipes",
+      "say": "Get dinners that *use it up.*",
+      "minDur": 3.6,
+      "items": [
+        [
+          "🥘",
+          "Chicken & Pepper Skillet",
+          "25 min"
+        ],
+        [
+          "🍝",
+          "Tomato Spinach Pasta",
+          "20 min"
+        ],
+        [
+          "🥪",
+          "Toasted Veggie Melt",
+          "10 min"
+        ]
+      ]
+    },
+    {
+      "chapter": "get it",
+      "visual": "cta",
+      "keyword": "COOK",
+      "say": "Comment *COOK* and I'll send you the app.",
+      "minDur": 4.2,
+      "speak": "Comment cook, and I'll send you the app."
+    }
+  ],
+  "voice": "af_heart"
 }

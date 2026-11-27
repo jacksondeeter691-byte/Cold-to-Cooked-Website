@@ -16,7 +16,7 @@ npx playwright install chromium
 1. Copy a script: `cp scripts/01-empty-fridge.json scripts/04-leftover-rice.json`
 2. Edit the words (see the format below). Use a question from `../PLAYBOOK.md`.
 3. Check the stills: `node engine/render.mjs scripts/04-leftover-rice.json --preview`
-4. Render it: `node engine/render.mjs scripts/04-leftover-rice.json`. This writes `out/04-leftover-rice.mp4` and `out/04-leftover-rice-cover.jpg` in under a minute.
+4. Render it with voice + music: `python3 engine/voice.py scripts/04-leftover-rice.json` (or silent: `node engine/render.mjs scripts/04-leftover-rice.json`). This writes `out/04-leftover-rice.mp4` and `out/04-leftover-rice-cover.jpg` in under a minute.
 
 Shortcut: ask Claude Code *"make a Cold-to-Cooked reel answering: what do I do with leftover rice?"* and it can write the script and render it for you.
 
@@ -47,12 +47,31 @@ Shortcut: ask Claude Code *"make a Cold-to-Cooked reel answering: what do I do w
 | `counter` | `to`, `label`, optional `prefix` / `suffix` |
 | `cta` | `keyword`: the word people comment |
 
-## Adding a voice (optional)
+## Voiceover + music (one command)
 
-1. Render the reel and play it. Read the captions out loud along with it into Voice Memos on your phone; the captions pace you.
-2. AirDrop the file into `vo/`, add `"audio": "../vo/04.m4a"` to the script, and render again.
+`engine/voice.py` reads the script out loud with a free AI voice (Kokoro, runs on your computer). It times every caption word and list item to the voice, adds a royalty-free background beat that ducks under the voice, adds a whoosh on each cut, and renders the final MP4.
 
-No voice? Add a trending sound inside Instagram or TikTok when you post. The captions carry the message on their own.
+One-time setup:
+
+```bash
+pip install kokoro-onnx soundfile numpy
+mkdir -p marketing/reels/models && cd marketing/reels/models
+curl -LO https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx
+curl -L -o voices-v1.0.bin https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin
+```
+
+Make a voiced reel:
+
+```bash
+python3 engine/voice.py scripts/01-empty-fridge.json
+```
+
+- `"voice": "af_heart"` in the script picks the voice. Other good ones: `af_bella`, `af_nicole`, `am_michael`, `am_adam`, `bf_emma`. You can also pass `--voice am_michael`.
+- `"speak": "..."` on a scene changes how a line is *said* without changing the caption. Use it for words the voice reads wrong, such as `COOK` → `cook` and `AI` → `A.I.`.
+- In `steps`, `recipes` and `fridge` scenes, each item is read aloud and pops in as it's said.
+- `"musicVolume": 0.22` sets how loud the beat is.
+
+Prefer your own voice? Record yourself reading the captions, put the file in `vo/`, add `"audio": "../vo/04.m4a"` to the script, and run `render.mjs` instead.
 
 ## Live preview while editing
 

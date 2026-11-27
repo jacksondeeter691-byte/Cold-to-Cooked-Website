@@ -5,17 +5,149 @@
   "wordGap": 0.3,
   "coverAt": 1.6,
   "scenes": [
-    { "chapter": "the problem", "visual": "bigtext", "emoji": "🧊", "say": "Your fridge isn't *empty.*", "hold": 1.2 },
-    { "chapter": "the problem", "visual": "fridge", "say": "You just can't *see* the meals in it.", "minDur": 3.6,
-      "items": [["🥚", "Eggs"], ["🥬", "Spinach"], ["🍚", "Rice"], ["🧅", "Onion"], ["🧀", "Cheese"], ["🍋", "Lemon"]] },
-    { "chapter": "the rule", "visual": "steps", "say": "Use the *4-part rule:*", "minDur": 5.2, "start": 0.7, "stagger": 0.95,
-      "items": [["A base", "rice, pasta, bread, wraps"], ["A protein", "eggs, beans, tuna, chicken"], ["Something green", "spinach, peas, herbs"], ["Something sharp", "lemon, soy, hot sauce"]] },
-    { "chapter": "the meals", "visual": "recipes", "say": "That's *three dinners* already.", "minDur": 3.6,
-      "items": [["🍳", "Egg Fried Rice", "15 min", "390 kcal"], ["🥚", "Spinach Frittata", "20 min", "340 kcal"], ["🍋", "Lemon Rice Bowl", "12 min", "420 kcal"]] },
-    { "chapter": "the shortcut", "visual": "phone", "say": "Or snap your fridge and let *AI* find them.", "minDur": 5.2,
-      "photo": ["🥚", "🥬", "🍚", "🧅", "🧀", "🍋"], "ready": "3 recipes ready",
-      "tags": [["🥚", "Eggs"], ["🥬", "Spinach"], ["🍚", "Rice"], ["🧀", "Cheese"]] },
-    { "chapter": "the shortcut", "visual": "counter", "say": "One photo. Up to *five* recipes.", "to": 5, "label": "recipes from one fridge photo", "minDur": 2.8 },
-    { "chapter": "get it", "visual": "cta", "keyword": "COOK", "say": "Comment *COOK* and I'll send you the app.", "minDur": 4.2 }
-  ]
+    {
+      "chapter": "the problem",
+      "visual": "bigtext",
+      "emoji": "🧊",
+      "say": "Your fridge isn't *empty.*",
+      "hold": 1.2
+    },
+    {
+      "chapter": "the problem",
+      "visual": "fridge",
+      "say": "You just can't *see* the meals in it.",
+      "minDur": 3.6,
+      "items": [
+        [
+          "🥚",
+          "Eggs"
+        ],
+        [
+          "🥬",
+          "Spinach"
+        ],
+        [
+          "🍚",
+          "Rice"
+        ],
+        [
+          "🧅",
+          "Onion"
+        ],
+        [
+          "🧀",
+          "Cheese"
+        ],
+        [
+          "🍋",
+          "Lemon"
+        ]
+      ]
+    },
+    {
+      "chapter": "the rule",
+      "visual": "steps",
+      "say": "Use the *4-part rule:*",
+      "minDur": 5.2,
+      "start": 0.7,
+      "stagger": 0.95,
+      "items": [
+        [
+          "A base",
+          "rice, pasta, bread, wraps"
+        ],
+        [
+          "A protein",
+          "eggs, beans, tuna, chicken"
+        ],
+        [
+          "Something green",
+          "spinach, peas, herbs"
+        ],
+        [
+          "Something sharp",
+          "lemon, soy, hot sauce"
+        ]
+      ],
+      "speak": "Use the four part rule."
+    },
+    {
+      "chapter": "the meals",
+      "visual": "recipes",
+      "say": "That's *three dinners* already.",
+      "minDur": 3.6,
+      "items": [
+        [
+          "🍳",
+          "Egg Fried Rice",
+          "15 min",
+          "390 kcal"
+        ],
+        [
+          "🥚",
+          "Spinach Frittata",
+          "20 min",
+          "340 kcal"
+        ],
+        [
+          "🍋",
+          "Lemon Rice Bowl",
+          "12 min",
+          "420 kcal"
+        ]
+      ]
+    },
+    {
+      "chapter": "the shortcut",
+      "visual": "phone",
+      "say": "Or just snap your fridge and let *AI* find every ingredient.",
+      "minDur": 5.2,
+      "photo": [
+        "🥚",
+        "🥬",
+        "🍚",
+        "🧅",
+        "🧀",
+        "🍋"
+      ],
+      "ready": "3 recipes ready",
+      "tags": [
+        [
+          "🥚",
+          "Eggs"
+        ],
+        [
+          "🥬",
+          "Spinach"
+        ],
+        [
+          "🍚",
+          "Rice"
+        ],
+        [
+          "🧀",
+          "Cheese"
+        ]
+      ],
+      "speak": "Or just snap your fridge, and let A.I. find every ingredient."
+    },
+    {
+      "chapter": "the shortcut",
+      "visual": "counter",
+      "say": "One photo. Up to *five* recipes.",
+      "to": 5,
+      "label": "recipes from one fridge photo",
+      "minDur": 2.8,
+      "speak": "One photo. Up to five recipes."
+    },
+    {
+      "chapter": "get it",
+      "visual": "cta",
+      "keyword": "COOK",
+      "say": "Comment *COOK* and I'll send you the app.",
+      "minDur": 4.2,
+      "speak": "Comment cook, and I'll send you the app."
+    }
+  ],
+  "voice": "af_heart"
 }

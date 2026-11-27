@@ -5,14 +5,107 @@
   "wordGap": 0.3,
   "coverAt": 1.6,
   "scenes": [
-    { "chapter": "the problem", "visual": "bigtext", "emoji": "💪", "say": "You're probably not eating enough *protein.*", "hold": 1.2 },
-    { "chapter": "the fix", "visual": "steps", "say": "No meal prep. *Just this:*", "minDur": 5.2, "start": 0.6, "stagger": 0.95,
-      "items": [["Protein at every meal", "build the plate around it"], ["Fix breakfast first", "eggs, Greek yogurt, cottage cheese"], ["Keep two backups", "canned tuna, beans, rotisserie chicken"], ["Track it for one week", "so you know your real number"]] },
-    { "chapter": "the shortcut", "visual": "phone", "say": "Snap your plate. *Get the numbers.*", "minDur": 5.2,
-      "photo": ["🍗", "🥦", "🍚", "🥚", "🥑", "🍋"], "ready": "Logged ✓",
-      "tags": [["🍗", "Protein"], ["🍚", "Carbs"], ["🥑", "Fat"], ["🔥", "Calories"]] },
-    { "chapter": "the shortcut", "visual": "recipes", "say": "Or cook *high-protein* from what you have.", "minDur": 3.6,
-      "items": [["🍳", "Egg & Cheese Scramble", "10 min", "high protein"], ["🥗", "Tuna Bean Salad", "8 min", "high protein"], ["🍗", "Chicken Rice Bowl", "20 min", "high protein"]] },
-    { "chapter": "get it", "visual": "cta", "keyword": "PROTEIN", "say": "Comment *PROTEIN* and I'll send you the app.", "minDur": 4.6 }
-  ]
+    {
+      "chapter": "the problem",
+      "visual": "bigtext",
+      "emoji": "💪",
+      "say": "You're probably not eating enough *protein.*",
+      "hold": 1.2
+    },
+    {
+      "chapter": "the fix",
+      "visual": "steps",
+      "say": "No meal prep. *Just this:*",
+      "minDur": 5.2,
+      "start": 0.6,
+      "stagger": 0.95,
+      "items": [
+        [
+          "Protein at every meal",
+          "build the plate around it"
+        ],
+        [
+          "Fix breakfast first",
+          "eggs, Greek yogurt, cottage cheese"
+        ],
+        [
+          "Keep two backups",
+          "canned tuna, beans, rotisserie chicken"
+        ],
+        [
+          "Track it for one week",
+          "so you know your real number"
+        ]
+      ]
+    },
+    {
+      "chapter": "the shortcut",
+      "visual": "phone",
+      "say": "Snap your plate. Get the protein, carbs, fat and *calories.*",
+      "minDur": 5.2,
+      "photo": [
+        "🍗",
+        "🥦",
+        "🍚",
+        "🥚",
+        "🥑",
+        "🍋"
+      ],
+      "ready": "Logged ✓",
+      "tags": [
+        [
+          "🍗",
+          "Protein"
+        ],
+        [
+          "🍚",
+          "Carbs"
+        ],
+        [
+          "🥑",
+          "Fat"
+        ],
+        [
+          "🔥",
+          "Calories"
+        ]
+      ],
+      "speak": "Snap your plate. Get the protein, carbs, fat and calories."
+    },
+    {
+      "chapter": "the shortcut",
+      "visual": "recipes",
+      "say": "Or cook *high-protein* from what you have.",
+      "minDur": 3.6,
+      "items": [
+        [
+          "🍳",
+          "Egg & Cheese Scramble",
+          "10 min",
+          "high protein"
+        ],
+        [
+          "🥗",
+          "Tuna Bean Salad",
+          "8 min",
+          "high protein"
+        ],
+        [
+          "🍗",
+          "Chicken Rice Bowl",
+          "20 min",
+          "high protein"
+        ]
+      ]
+    },
+    {
+      "chapter": "get it",
+      "visual": "cta",
+      "keyword": "PROTEIN",
+      "say": "Comment *PROTEIN* and I'll send you the app.",
+      "minDur": 4.6,
+      "speak": "Comment protein, and I'll send you the app."
+    }
+  ],
+  "voice": "af_heart"
 }

@@ -162,7 +162,7 @@ const VISUALS = {
     return lt => {
       const o = P(lt, .1, .8, easeInOut);
       door.style.transform = `rotateY(${-o * 105}deg)`; door.style.opacity = 1 - clamp((o - .7) / .3);
-      items.forEach((x, i) => { const p = P(lt, .7 + i * (d.stagger || .28), .5, back); x.style.transform = `scale(${p}) translateY(${(1 - p) * 40}px)`; x.style.opacity = clamp(p * 2); });
+      items.forEach((x, i) => { const p = P(lt, d.vo && d.vo.items.length ? VO_LEAD + d.vo.items[i] - .15 : .7 + i * (d.stagger || .28), .5, back); x.style.transform = `scale(${p}) translateY(${(1 - p) * 40}px)`; x.style.opacity = clamp(p * 2); });
     };
   },
 
@@ -173,7 +173,7 @@ const VISUALS = {
       r.style.top = top + i * gap + 'px'; L.appendChild(r); return r;
     });
     return lt => rows.forEach((r, i) => {
-      const at = (d.start || .5) + i * (d.stagger || .9), p = P(lt, at, .45);
+      const at = d.vo && d.vo.items.length ? VO_LEAD + d.vo.items[i] - .15 : (d.start || .5) + i * (d.stagger || .9), p = P(lt, at, .45);
       r.style.opacity = p; r.style.transform = `translateX(${(1 - p) * -120}px)`;
       const c = P(lt, at + .45, .35, back), k = r.querySelector('.chk');
       k.style.transform = `scale(${c})`; r.style.borderColor = c > .5 ? 'rgba(52,199,89,.45)' : 'rgba(255,255,255,.08)';
@@ -186,7 +186,7 @@ const VISUALS = {
       const c = el('div', 'card', `<div class="pic emoji">${it[0]}</div><div><div class="n">${it[1]}</div><div class="meta">${it.slice(2).map(m => `<span class="chip">${m}</span>`).join('')}</div></div>`);
       c.style.top = top + i * gap + 'px'; L.appendChild(c); return c;
     });
-    return lt => cards.forEach((c, i) => { const p = P(lt, .4 + i * (d.stagger || .5), .55, back); c.style.opacity = clamp(p * 1.5); c.style.transform = `translateY(${(1 - p) * 200}px) scale(${.9 + .1 * p})`; });
+    return lt => cards.forEach((c, i) => { const at = d.vo && d.vo.items.length ? VO_LEAD + d.vo.items[i] - .2 : .4 + i * (d.stagger || .5), p = P(lt, at, .55, back); c.style.opacity = clamp(p * 1.5); c.style.transform = `translateY(${(1 - p) * 200}px) scale(${.9 + .1 * p})`; });
   },
 
   phone(d, L) {
@@ -246,6 +246,7 @@ const VISUALS = {
 
 // ---------- timeline ----------
 let SCENES = [], CHAPTERS = [], TOTAL = 0;
+const VO_LEAD = .2; // voice starts this long after a scene cut
 const H = document.getElementById('headline'), V = document.getElementById('visual');
 
 function parseWords(say) {
@@ -264,11 +265,19 @@ window.loadReel = function (cfg) {
   let t = 0;
   SCENES = cfg.scenes.map(s => {
     const words = parseWords(s.say || '');
-    const wordsDone = (s.wordStart || .15) + words.length * (s.wordGap || wps);
-    const dur = s.dur || Math.max(wordsDone + (s.hold || 1.4), s.minDur || 0);
+    let wordTimes, dur;
+    if (s.vo) {
+      // voiced: spread the caption words across the spoken headline, weighted by word length
+      const lens = words.map(w => w.text.length + 2), tot = lens.reduce((a, b) => a + b, 0) || 1;
+      let acc = 0; wordTimes = lens.map(l => { const at = VO_LEAD + (acc / tot) * s.vo.say - .05; acc += l; return at; });
+      dur = s.dur || Math.max(VO_LEAD + s.vo.dur + (s.tail ?? .55), s.minDur ? s.minDur * .8 : 0);
+    } else {
+      wordTimes = words.map((w, i) => (s.wordStart || .15) + i * (s.wordGap || wps));
+      dur = s.dur || Math.max(wordTimes.length ? wordTimes[wordTimes.length - 1] + (s.hold || 1.4) : 1.5, s.minDur || 0);
+    }
     const layer = el('div', 'layer'); V.appendChild(layer); layer.style.opacity = 0;
     const update = VISUALS[s.visual] ? VISUALS[s.visual](s, layer) : () => {};
-    const sc = { ...s, words, start: t, dur, layer, update, wps: s.wordGap || wps };
+    const sc = { ...s, words, wordTimes, start: t, dur, layer, update };
     t += dur; return sc;
   });
   TOTAL = t;
@@ -276,6 +285,7 @@ window.loadReel = function (cfg) {
   const C = document.getElementById('chapters');
   CHAPTERS.forEach((c, i) => C.appendChild(el('div', 'pill', String(i + 1).padStart(2, '0'))));
   if (cfg.brand) document.getElementById('brand').textContent = cfg.brand;
+  window.__starts = SCENES.map(s => s.start);
   return TOTAL;
 };
 
@@ -293,7 +303,7 @@ window.seek = function (t) {
       p.textContent = String(i + 1).padStart(2, '0') + (i === ci ? ' · ' + s.chapter.toUpperCase() : ''); });
   }
   [...H.children].forEach((w, i) => {
-    const p = P(lt, (s.wordStart || .15) + i * s.wps, .28);
+    const p = P(lt, s.wordTimes[i], .28);
     w.style.opacity = .12 + .88 * p; w.style.transform = `translateY(${(1 - p) * 22}px)`; w.style.filter = `blur(${(1 - p) * 10}px)`;
   });
   // scene in/out

@@ -14,7 +14,7 @@ if (!scriptPath) { console.error('usage: node render.mjs <script.json> [--fps 30
 const fps = Number(process.argv[process.argv.indexOf('--fps') + 1]) || 30;
 const preview = process.argv.includes('--preview'); // stills only, fast
 const cfg = JSON.parse(fs.readFileSync(scriptPath, 'utf8'));
-const name = path.basename(scriptPath, '.json');
+const name = cfg.name || path.basename(scriptPath, '.json');
 const outDir = path.resolve(here, '..', 'out');
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -54,6 +54,35 @@ for (let f = 0; f < frames; f++) {
 }
 ff.stdin.end();
 await new Promise(r => ff.on('close', r));
+
+// Voiced build (from voice.py): mix voiceover clips + music (ducked under the voice) + whooshes on cuts
+if (cfg.voiceBuild) {
+  const dir = path.resolve(path.dirname(scriptPath), cfg.voiceBuild);
+  const starts = await page.evaluate(() => window.__starts);
+  const VO_LEAD = 0.2;
+  const inputs = ['-i', out, '-i', path.join(dir, 'music.wav')];
+  const f = [`[1:a]atrim=0:${total.toFixed(2)},afade=t=out:st=${(total - 1.5).toFixed(2)}:d=1.5,volume=${cfg.musicVolume ?? 0.22}[mus]`];
+  const voLabels = [], fxLabels = [];
+  cfg.scenes.forEach((s, i) => {
+    if (!s.vo) return;
+    inputs.push('-i', path.join(dir, s.vo.file));
+    const k = inputs.length / 2 - 1;
+    f.push(`[${k}:a]adelay=${Math.round((starts[i] + VO_LEAD) * 1000)}:all=1[v${i}]`); voLabels.push(`[v${i}]`);
+  });
+  starts.slice(1).forEach((st, i) => {
+    inputs.push('-i', path.join(dir, 'whoosh.wav'));
+    const k = inputs.length / 2 - 1;
+    f.push(`[${k}:a]adelay=${Math.max(0, Math.round((st - 0.3) * 1000))}:all=1,volume=0.35[w${i}]`); fxLabels.push(`[w${i}]`);
+  });
+  f.push(`${voLabels.join('')}amix=inputs=${voLabels.length}:normalize=0,asplit[vo][key]`);
+  f.push(`[mus][key]sidechaincompress=threshold=0.02:ratio=5:attack=15:release=350[duck]`);
+  f.push(`[vo][duck]${fxLabels.join('')}amix=inputs=${2 + fxLabels.length}:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11[a]`);
+  const voiced = out.replace(/\.mp4$/, '.voiced.mp4');
+  await new Promise((res, rej) => spawn('ffmpeg', ['-y', '-loglevel', 'error', ...inputs, '-filter_complex', f.join(';'),
+    '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-t', total.toFixed(2), voiced],
+    { stdio: 'inherit' }).on('close', c => c ? rej(new Error('audio mix failed')) : res()));
+  fs.renameSync(voiced, out);
+}
 
 // cover image = a frame from the hook (used as the reel thumbnail)
 await page.evaluate(x => window.seek(x), cfg.coverAt ?? 1.6);

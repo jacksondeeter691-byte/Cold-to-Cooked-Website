@@ -66,7 +66,7 @@ Keep health reels general. No medical claims and no promised results. The app's 
 
 - **Volume beats perfection.** Post 1 reel a day for 30 days. Each one takes about 10 minutes once the script is written.
 - **Post everywhere:** the same MP4 goes to Instagram Reels, TikTok and YouTube Shorts. Upload to each one natively; don't share a link from one to another.
-- **Sound:** either record a voiceover (see the reels README) or put a trending, low-volume sound under it in the app. The captions carry the message with the sound off.
+- **Sound:** the reels come with an AI voiceover and a background beat. You can also add a trending sound at very low volume inside the app for an extra reach boost. The captions carry the message with the sound off.
 - **Caption:** each script has a `caption` field. Paste it and keep 3–5 hashtags.
 - **Cover:** use the `-cover.jpg` the renderer writes, so the grid looks consistent.
 - **Read the numbers after 48 hours.** Saves and shares mean the useful thing landed. Comments of the keyword mean the CTA landed. Make more reels like your top 3, rewrite the hooks on your bottom 3, and repost the best ones a month later with a new hook.
